@@ -1,0 +1,89 @@
+@model MyDictionary.Core.Entities.UserSettings
+
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<div class="max-w-2xl mx-auto">
+    <div class="mb-8">
+        <h1 class="text-2xl font-bold text-slate-900">Settings</h1>
+        <p class="text-slate-500">Customize your learning experience</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+        <form asp-action="Update">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CreatedAt" />
+            <input type="hidden" asp-for="UpdatedAt" />
+
+            <div class="space-y-6">
+                <!-- Language Preferences -->
+                <div>
+                    <h3 class="text-lg font-medium text-slate-900 mb-4 pb-2 border-b border-slate-100">Language Preferences</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label asp-for="DefaultLanguageFrom" class="block text-sm font-medium text-slate-700 mb-1">Default From Language</label>
+                            <select asp-for="DefaultLanguageFrom" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                <option value="en">English</option>
+                                <option value="ar">Arabic</option>
+                                <option value="fr">French</option>
+                                <option value="es">Spanish</option>
+                                <option value="de">German</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label asp-for="DefaultLanguageTo" class="block text-sm font-medium text-slate-700 mb-1">Default To Language</label>
+                            <select asp-for="DefaultLanguageTo" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                <option value="ar">Arabic</option>
+                                <option value="en">English</option>
+                                <option value="fr">French</option>
+                                <option value="es">Spanish</option>
+                                <option value="de">German</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Goals -->
+                <div>
+                    <h3 class="text-lg font-medium text-slate-900 mb-4 pb-2 border-b border-slate-100">Study Goals</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label asp-for="DailyGoal" class="block text-sm font-medium text-slate-700 mb-1">Daily New Words Goal</label>
+                            <input asp-for="DailyGoal" type="number" min="1" max="100" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-primary-500" />
+                        </div>
+                        <div>
+                            <label asp-for="CardsPerSession" class="block text-sm font-medium text-slate-700 mb-1">Cards Per Review Session</label>
+                            <input asp-for="CardsPerSession" type="number" min="5" max="50" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-primary-500" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- App Preferences -->
+                <div>
+                    <h3 class="text-lg font-medium text-slate-900 mb-4 pb-2 border-b border-slate-100">App Preferences</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <label asp-for="EnableNotifications" class="text-sm font-medium text-slate-700">Enable Notifications</label>
+                            <input asp-for="EnableNotifications" type="checkbox" class="w-5 h-5 text-primary-600 rounded focus:ring-primary-500 border-gray-300" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label asp-for="AutoPlayAudio" class="text-sm font-medium text-slate-700">Auto-play Audio</label>
+                            <input asp-for="AutoPlayAudio" type="checkbox" class="w-5 h-5 text-primary-600 rounded focus:ring-primary-500 border-gray-300" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label asp-for="DarkMode" class="text-sm font-medium text-slate-700">Dark Mode (Beta)</label>
+                            <input asp-for="DarkMode" type="checkbox" class="w-5 h-5 text-primary-600 rounded focus:ring-primary-500 border-gray-300" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-6 mt-6 border-t border-slate-100">
+                <button type="submit" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm">
+                    Save Settings
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MyDictionary.Mobile.ViewModels"
+             xmlns:entities="clr-namespace:MyDictionary.Core.Entities;assembly=MyDictionary.Core"
+             x:Class="MyDictionary.Mobile.Views.WordsPage"
+             x:DataType="vm:WordsViewModel"
+             x:Name="WordsPageRef"
+             Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource BackgroundDark}}">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="20" RowSpacing="15">
+
+        <!-- Search Bar -->
+        <Border Grid.Row="0" Style="{StaticResource CardBorder}" Padding="10">
+            <SearchBar Placeholder="Search words..." 
+                       Text="{Binding SearchText}"
+                       SearchCommand="{Binding LoadWordsCommand}"
+                       BackgroundColor="Transparent"/>
+        </Border>
+
+        <!-- Filters -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="10">
+            <Border Grid.Column="0" Style="{StaticResource CardBorder}" Padding="10">
+                <Picker Title="Difficulty" 
+                        SelectedItem="{Binding SelectedDifficulty}"
+                        ItemsSource="{Binding DifficultyFilters}"/>
+            </Border>
+            <Border Grid.Column="1" Style="{StaticResource CardBorder}" Padding="10">
+                <Picker Title="Part of Speech" 
+                        SelectedItem="{Binding SelectedPartOfSpeech}"
+                        ItemsSource="{Binding PartOfSpeechFilters}"/>
+            </Border>
+        </Grid>
+
+        <!-- Words List -->
+        <CollectionView Grid.Row="2" 
+                        ItemsSource="{Binding Words}"
+                        SelectionMode="None">
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                    <Label Text="📚" FontSize="64" HorizontalOptions="Center"/>
+                    <Label Text="No words yet" 
+                           Style="{StaticResource SectionTitle}"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Add your first word to get started!" 
+                           Style="{StaticResource CaptionText}"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="entities:Word">
+                    <SwipeView>
+                        <!-- Swipe Actions -->
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Edit" 
+                                           BackgroundColor="{StaticResource Primary}"
+                                           Command="{Binding Source={x:Reference WordsPageRef}, Path=BindingContext.EditWordCommand}"
+                                           CommandParameter="{Binding .}"/>
+                                <SwipeItem Text="Delete" 
+                                           BackgroundColor="{StaticResource Error}"
+                                           Command="{Binding Source={x:Reference WordsPageRef}, Path=BindingContext.DeleteWordCommand}"
+                                           CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <!-- Word Card -->
+                        <Border Style="{StaticResource CardBorder}" Margin="0,5">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding Source={x:Reference WordsPageRef}, Path=BindingContext.EditWordCommand}"
+                                    CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>
+
+                            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="8">
+                                
+                                <!-- Word Text -->
+                                <Label Grid.Row="0" Grid.Column="0"
+                                       Text="{Binding WordText}" 
+                                       Style="{StaticResource SectionTitle}"/>
+
+                                <!-- Difficulty Badge -->
+                                <Border Grid.Row="0" Grid.Column="1"
+                                        BackgroundColor="{Binding Difficulty, Converter={StaticResource DifficultyColorConverter}}"
+                                        Stroke="Transparent"
+                                        StrokeThickness="0"
+                                        Padding="10,5"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Start">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding Difficulty}" 
+                                           TextColor="White"
+                                           FontSize="12"
+                                           FontAttributes="Bold"/>
+                                </Border>
+
+                                <!-- Translation -->
+                                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                       Text="{Binding Translation}" 
+                                       Style="{StaticResource BodyText}"
+                                       TextColor="{StaticResource Primary}"/>
+
+                                <!-- Meta Info -->
+                                <HorizontalStackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Spacing="15">
+                                    <Label Text="{Binding PartOfSpeech}" 
+                                           Style="{StaticResource CaptionText}"/>
+                                    <Label Text="•" 
+                                           Style="{StaticResource CaptionText}"/>
+                                    <Label Text="{Binding NextReviewDate, StringFormat='Review: {0:MMM dd}'}" 
+                                           Style="{StaticResource CaptionText}"/>
+                                </HorizontalStackLayout>
+
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Add Button -->
+        <Button Grid.Row="3"
+                Text="➕ Add New Word"
+                Command="{Binding AddWordCommand}"
+                Style="{StaticResource PrimaryButton}"/>
+
+    </Grid>
+
+</ContentPage>

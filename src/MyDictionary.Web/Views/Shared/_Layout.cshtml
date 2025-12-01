@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - myDictionary</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+        .glass-panel { background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+        .dark .glass-panel { background: rgba(30,41,59,0.7); border: 1px solid rgba(71,85,105,0.2); }
+        .theme-toggle { transition: transform 0.3s ease; }
+        .theme-toggle:hover { transform: rotate(20deg); }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col">
+    <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50 transition-colors">
+        <nav class="container mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <button id="mobile-menu-btn" class="md:hidden text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                
+                <a class="flex items-center gap-2 text-xl font-bold text-primary-600 dark:text-primary-400" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span class="hidden sm:inline">myDictionary</span>
+                </a>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
+                <a class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors" asp-controller="Home" asp-action="Index">Dashboard</a>
+                <a class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors" asp-controller="Words" asp-action="Index">Vocabulary</a>
+                <a class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors" asp-controller="Flashcards" asp-action="Index">Review</a>
+                <a class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors" asp-controller="Tests" asp-action="Index">Practice</a>
+                <a class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors" asp-controller="DailyChallenges" asp-action="Index">Challenges</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a asp-controller="Words" asp-action="Create" class="hidden sm:flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                    <i class="fa-solid fa-plus"></i> <span class="hidden lg:inline">Add Word</span>
+                </a>
+                
+                <button id="theme-toggle" class="text-slate-400 hover:text-slate-600 dark:text-slate-300 dark:hover:text-slate-100 p-2 theme-toggle" title="Toggle dark mode">
+                    <i class="fa-solid fa-moon dark:hidden text-lg"></i>
+                    <i class="fa-solid fa-sun hidden dark:inline text-lg"></i>
+                </button>
+                
+                <a asp-controller="Settings" asp-action="Index" class="text-slate-400 hover:text-slate-600 dark:text-slate-300 dark:hover:text-slate-100 p-2">
+                    <i class="fa-solid fa-gear text-lg"></i>
+                </a>
+            </div>
+        </nav>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 px-4 py-4 space-y-3 shadow-lg">
+            <a class="block text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium" asp-controller="Home" asp-action="Index">Dashboard</a>
+            <a class="block text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium" asp-controller="Words" asp-action="Index">Vocabulary</a>
+            <a class="block text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium" asp-controller="Flashcards" asp-action="Index">Review</a>
+            <a class="block text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium" asp-controller="Tests" asp-action="Index">Practice</a>
+            <a class="block text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium" asp-controller="DailyChallenges" asp-action="Index">Challenges</a>
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-700">
+                <a asp-controller="Words" asp-action="Create" class="block w-full text-center bg-primary-600 text-white px-4 py-2 rounded-lg font-medium">Add New Word</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+        @if (TempData["Success"] != null)
+        {
+            <div class="mb-6 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 text-green-700 dark:text-green-300 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">@TempData["Success"]</span>
+            </div>
+        }
+        @RenderBody()
+    </main>
+
+    <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-8 mt-auto transition-colors">
+        <div class="container mx-auto px-4 text-center text-slate-500 dark:text-slate-400 text-sm">
+            <p>&copy; @DateTime.Now.Year - myDictionary - Your Personal Language Assistant</p>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // Dark Mode Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            html.classList.add('dark');
+        }
+        
+        themeToggle.addEventListener('click', function() {
+            html.classList.toggle('dark');
+            const newTheme = html.classList.contains('dark') ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

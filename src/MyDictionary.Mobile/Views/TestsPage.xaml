@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MyDictionary.Mobile.ViewModels"
+             x:Class="MyDictionary.Mobile.Views.TestsPage"
+             x:DataType="vm:TestsViewModel"
+             x:Name="TestsPageRef"
+             Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource BackgroundDark}}">
+
+    <Grid>
+        <!-- Test Menu (Visible when NOT testing) -->
+        <ScrollView IsVisible="{Binding IsMenuVisible}">
+            <VerticalStackLayout Padding="20" Spacing="20">
+
+                <!-- Header -->
+                <Border Style="{StaticResource CardBorder}">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="📝 Test Your Knowledge" 
+                               Style="{StaticResource PageTitle}"/>
+                        <Label Text="Choose a test mode to practice" 
+                               Style="{StaticResource CaptionText}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Test Modes -->
+                <Border Style="{StaticResource CardBorder}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding StartMultipleChoiceCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="15">
+                        <Label Grid.Column="0" Text="📋" FontSize="32" VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="5">
+                            <Label Text="Multiple Choice" Style="{StaticResource SectionTitle}"/>
+                            <Label Text="Choose the correct translation" Style="{StaticResource CaptionText}"/>
+                        </VerticalStackLayout>
+                        <Label Grid.Column="2" Text="›" FontSize="24" TextColor="{StaticResource Gray400}" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- Typing Test -->
+                <Border Style="{StaticResource CardBorder}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding StartTypingTestCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="15">
+                        <Label Grid.Column="0" Text="⌨️" FontSize="32" VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="5">
+                            <Label Text="Typing Test" Style="{StaticResource SectionTitle}"/>
+                            <Label Text="Type the correct translation" Style="{StaticResource CaptionText}"/>
+                        </VerticalStackLayout>
+                        <Label Grid.Column="2" Text="›" FontSize="24" TextColor="{StaticResource Gray400}" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Active Test View (Visible when Testing) -->
+        <Grid IsVisible="{Binding IsTesting}" RowDefinitions="Auto,*,Auto" Padding="20" RowSpacing="20">
+            
+            <!-- Progress Header -->
+            <Border Grid.Row="0" Style="{StaticResource CardBorder}">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="{Binding Score, StringFormat='Score: {0}'}" 
+                           Style="{StaticResource SectionTitle}"
+                           TextColor="{StaticResource Primary}"/>
+                    <Button Grid.Column="1" 
+                            Text="Quit" 
+                            Command="{Binding CancelTestCommand}"
+                            Style="{StaticResource DangerButton}"
+                            HeightRequest="40"
+                            Padding="10,0"/>
+                </Grid>
+            </Border>
+
+            <!-- Question Card -->
+            <Border Grid.Row="1" Style="{StaticResource CardBorder}" VerticalOptions="Center">
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Question:" Style="{StaticResource CaptionText}" HorizontalOptions="Center"/>
+                    <Label Text="{Binding QuestionText}" 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center" 
+                           HorizontalTextAlignment="Center"/>
+                    
+                    <!-- Speaker Button for Question -->
+                    <Button Text="🔊 Listen"
+                            Command="{Binding SpeakQuestionCommand}"
+                            BackgroundColor="{StaticResource Primary}"
+                            TextColor="White"
+                            CornerRadius="20"
+                            Padding="20,10"
+                            HorizontalOptions="Center"/>
+                    
+                    <BoxView HeightRequest="1" Color="{StaticResource BorderLight}" Margin="0,10"/>
+                    
+                    <!-- Multiple Choice Options -->
+                    <CollectionView ItemsSource="{Binding Options}" IsVisible="{Binding IsMultipleChoice}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Button Text="{Binding .}"
+                                        Command="{Binding Source={x:Reference TestsPageRef}, Path=BindingContext.SubmitAnswerCommand}"
+                                        CommandParameter="{Binding .}"
+                                        Style="{StaticResource SecondaryButton}"
+                                        Margin="0,5"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!-- Typing Test Input -->
+                    <VerticalStackLayout Spacing="15" IsVisible="{Binding IsTypingTest}">
+                        <Entry Placeholder="Type the translation..."
+                               Text="{Binding TypedAnswer}"
+                               Style="{StaticResource ModernEntry}"
+                               Keyboard="Default"
+                               HorizontalTextAlignment="Center"
+                               ReturnCommand="{Binding SubmitAnswerCommand}"
+                               ReturnCommandParameter="{Binding TypedAnswer}"/>
+                        
+                        <Button Text="Submit Answer"
+                                Command="{Binding SubmitAnswerCommand}"
+                                CommandParameter="{Binding TypedAnswer}"
+                                Style="{StaticResource PrimaryButton}"/>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+        </Grid>
+    </Grid>
+
+</ContentPage>

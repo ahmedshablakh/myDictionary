@@ -1,0 +1,52 @@
+@model MyDictionary.Core.Entities.TestResult
+
+@{
+    ViewData["Title"] = "Test Result";
+    var percentage = Model.Score;
+    var colorClass = percentage >= 80 ? "text-green-600" : percentage >= 50 ? "text-yellow-600" : "text-red-600";
+    var bgClass = percentage >= 80 ? "bg-green-50" : percentage >= 50 ? "bg-yellow-50" : "bg-red-50";
+    var iconClass = percentage >= 80 ? "fa-trophy" : percentage >= 50 ? "fa-star" : "fa-book-open";
+}
+
+<div class="max-w-md mx-auto text-center pt-8">
+    <div class="w-24 h-24 rounded-full @bgClass @colorClass flex items-center justify-center text-4xl mx-auto mb-6 shadow-sm">
+        <i class="fa-solid @iconClass"></i>
+    </div>
+
+    <h1 class="text-3xl font-bold text-slate-900 mb-2">
+        @if (percentage >= 80) { <text>Excellent!</text> }
+        else if (percentage >= 50) { <text>Good Job!</text> }
+        else { <text>Keep Practicing</text> }
+    </h1>
+    
+    <p class="text-slate-500 mb-8">You completed the @Model.TestType test.</p>
+
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-8 mb-8">
+        <div class="text-5xl font-bold @colorClass mb-2">@Math.Round(percentage)%</div>
+        <div class="text-sm text-slate-400 uppercase tracking-wider font-medium mb-8">Final Score</div>
+
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-100 pt-8">
+            <div>
+                <div class="text-2xl font-bold text-slate-800">@Model.CorrectAnswers</div>
+                <div class="text-xs text-slate-400 mt-1">Correct</div>
+            </div>
+            <div>
+                <div class="text-2xl font-bold text-slate-800">@Model.WrongAnswers</div>
+                <div class="text-xs text-slate-400 mt-1">Wrong</div>
+            </div>
+            <div>
+                <div class="text-2xl font-bold text-slate-800">@Model.Duration.ToString(@"mm\:ss")</div>
+                <div class="text-xs text-slate-400 mt-1">Time</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-3">
+        <a asp-action="Start" asp-route-type="@Model.TestType" class="w-full py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors shadow-sm">
+            Try Again
+        </a>
+        <a asp-action="Index" class="w-full py-3 bg-white text-slate-700 border border-slate-200 rounded-xl font-bold hover:bg-slate-50 transition-colors">
+            Back to Tests
+        </a>
+    </div>
+</div>

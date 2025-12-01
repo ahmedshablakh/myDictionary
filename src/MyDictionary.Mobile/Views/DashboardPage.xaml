@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MyDictionary.Mobile.ViewModels"
+             x:Class="MyDictionary.Mobile.Views.DashboardPage"
+             x:DataType="vm:DashboardViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource BackgroundDark}}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Welcome Section -->
+            <Border Style="{StaticResource CardBorder}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="📚 Welcome Back!" 
+                           Style="{StaticResource PageTitle}"/>
+                    <Label Text="Continue your language learning journey" 
+                           Style="{StaticResource CaptionText}"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Statistics Grid -->
+            <Grid RowDefinitions="Auto,Auto" 
+                  ColumnDefinitions="*,*" 
+                  RowSpacing="15" 
+                  ColumnSpacing="15">
+
+                <!-- Total Words -->
+                <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource CardBorder}">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="" FontSize="32" HorizontalOptions="Center"/>
+                        <Label Text="{Binding TotalWords}" 
+                               FontSize="32" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Primary}"/>
+                        <Label Text="Total Words" 
+                               Style="{StaticResource CaptionText}"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Due Today -->
+                <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource CardBorder}">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="⏰" FontSize="32" HorizontalOptions="Center"/>
+                        <Label Text="{Binding WordsDueToday}" 
+                               FontSize="32" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Warning}"/>
+                        <Label Text="Due Today" 
+                               Style="{StaticResource CaptionText}"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Mastered Words -->
+                <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource CardBorder}">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="⭐" FontSize="32" HorizontalOptions="Center"/>
+                        <Label Text="{Binding MasteredWords}" 
+                               FontSize="32" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Success}"/>
+                        <Label Text="Mastered" 
+                               Style="{StaticResource CaptionText}"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Learning Streak -->
+                <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource CardBorder}">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="🔥" FontSize="32" HorizontalOptions="Center"/>
+                        <Label Text="{Binding LearningStreak, StringFormat='{0:F0}'}" 
+                               FontSize="32" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource Error}"/>
+                        <Label Text="Day Streak" 
+                               Style="{StaticResource CaptionText}"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+            <!-- Quick Actions -->
+            <Label Text="Quick Actions" Style="{StaticResource SectionTitle}" Margin="0,10,0,0"/>
+
+            <Grid RowDefinitions="Auto,Auto" 
+                  ColumnDefinitions="*,*" 
+                  RowSpacing="15" 
+                  ColumnSpacing="15">
+
+                <!-- Start Review -->
+                <Button Grid.Row="0" Grid.Column="0"
+                        Text="🎴 Review"
+                        Command="{Binding NavigateToFlashcardsCommand}"
+                        Style="{StaticResource PrimaryButton}"/>
+
+                <!-- Add Word -->
+                <Button Grid.Row="0" Grid.Column="1"
+                        Text="➕ Add Word"
+                        Command="{Binding NavigateToWordsCommand}"
+                        Style="{StaticResource SuccessButton}"/>
+
+                <!-- Take Test -->
+                <Button Grid.Row="1" Grid.Column="0"
+                        Text="📝 Take Test"
+                        Command="{Binding NavigateToTestsCommand}"
+                        Style="{StaticResource SecondaryButton}"/>
+
+                <!-- View All Words -->
+                <Button Grid.Row="1" Grid.Column="1"
+                        Text="📚 All Words"
+                        Command="{Binding NavigateToWordsCommand}"
+                        Style="{StaticResource SecondaryButton}"/>
+
+            </Grid>
+
+            <!-- Progress Section -->
+            <Border Style="{StaticResource CardBorder}" Margin="0,10,0,0">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="📊 Your Progress" Style="{StaticResource SectionTitle}"/>
+                    
+                    <!-- Mastery Progress -->
+                    <VerticalStackLayout Spacing="5">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Grid.Column="0" Text="Mastery Rate" Style="{StaticResource BodyText}"/>
+                            <Label Grid.Column="1" 
+                                   Text="{Binding MasteryPercentage, StringFormat='{0:F0}%'}" 
+                                   Style="{StaticResource BodyText}"
+                                   TextColor="{StaticResource Primary}"/>
+                        </Grid>
+                        <ProgressBar Progress="{Binding MasteryProgress}" 
+                                     ProgressColor="{StaticResource Primary}"
+                                     HeightRequest="8"/>
+                    </VerticalStackLayout>
+
+                    <!-- Review Completion -->
+                    <VerticalStackLayout Spacing="5">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Grid.Column="0" Text="Today's Reviews" Style="{StaticResource BodyText}"/>
+                            <Label Grid.Column="1" 
+                                   Text="{Binding ReviewsCompletedToday, StringFormat='{0} completed'}" 
+                                   Style="{StaticResource BodyText}"
+                                   TextColor="{StaticResource Success}"/>
+                        </Grid>
+                        <ProgressBar Progress="{Binding ReviewProgress}" 
+                                     ProgressColor="{StaticResource Success}"
+                                     HeightRequest="8"/>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Motivational Message -->
+            <Border Style="{StaticResource CardBorder}" 
+                   BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                   Margin="0,10,0,0">
+                <Label Text="{Binding MotivationalMessage}" 
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalTextAlignment="Center"/>
+            </Border>
+
+            <!-- Weekly Statistics -->
+            <Border Style="{StaticResource CardBorder}" Margin="0,10,0,0">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="📅 This Week" Style="{StaticResource SectionTitle}"/>
+                    
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="10">
+                        <!-- Words This Week -->
+                        <Label Grid.Row="0" Grid.Column="0" 
+                               Text="New Words" 
+                               Style="{StaticResource BodyText}"/>
+                        <Label Grid.Row="0" Grid.Column="1" 
+                               Text="{Binding WordsThisWeek, StringFormat='{0} words'}" 
+                               Style="{StaticResource BodyText}"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Accent}"/>
+                        
+                        <!-- Study Days -->
+                        <Label Grid.Row="1" Grid.Column="0" 
+                               Text="Study Days" 
+                               Style="{StaticResource BodyText}"/>
+                        <Label Grid.Row="1" Grid.Column="1" 
+                               Text="{Binding StudyDaysThisWeek, StringFormat='{0}/7 days'}" 
+                               Style="{StaticResource BodyText}"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Info}"/>
+                        
+                        <!-- Success Rate -->
+                        <Label Grid.Row="2" Grid.Column="0" 
+                               Text="Success Rate" 
+                               Style="{StaticResource BodyText}"/>
+                        <Label Grid.Row="2" Grid.Column="1" 
+                               Text="{Binding WeeklySuccessRate, StringFormat='{0:F0}%'}" 
+                               Style="{StaticResource BodyText}"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Success}"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

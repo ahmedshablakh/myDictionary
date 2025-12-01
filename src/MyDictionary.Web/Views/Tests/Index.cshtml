@@ -1,0 +1,84 @@
+@model IEnumerable<MyDictionary.Core.Entities.TestResult>
+@using MyDictionary.Core.Entities
+
+@{
+    ViewData["Title"] = "Practice Tests";
+}
+
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-slate-900">Practice Arena</h1>
+    <p class="text-slate-500">Test your knowledge with various quiz modes</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+    <!-- Multiple Choice -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-primary-300 transition-colors group">
+        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-list-check"></i>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">Multiple Choice</h3>
+        <p class="text-slate-500 text-sm mb-6">Choose the correct translation from 4 options.</p>
+        <a asp-action="Start" asp-route-type="MultipleChoice" class="block w-full py-2 text-center bg-slate-50 hover:bg-primary-600 hover:text-white text-slate-700 font-medium rounded-lg transition-colors">
+            Start Quiz
+        </a>
+    </div>
+
+    <!-- Speaking Test (formerly Typing) -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-primary-300 transition-colors group">
+        <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-microphone"></i>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">Speaking Test</h3>
+        <p class="text-slate-500 text-sm mb-6">Practice your pronunciation by speaking the words.</p>
+        <a asp-action="Start" asp-route-type="Typing" class="block w-full py-2 text-center bg-slate-50 hover:bg-primary-600 hover:text-white text-slate-700 font-medium rounded-lg transition-colors">
+            Start Quiz
+        </a>
+    </div>
+
+    <!-- Listening Test -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-primary-300 transition-colors group">
+        <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-headphones"></i>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">Listening Test</h3>
+        <p class="text-slate-500 text-sm mb-6">Listen to the word and type what you hear.</p>
+        <a asp-action="Start" asp-route-type="Listening" class="block w-full py-2 text-center bg-slate-50 hover:bg-primary-600 hover:text-white text-slate-700 font-medium rounded-lg transition-colors">
+            Start Quiz
+        </a>
+    </div>
+</div>
+
+<h2 class="text-lg font-bold text-slate-900 mb-4">Recent Results</h2>
+<div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+    <table class="w-full text-left text-sm">
+        <thead class="bg-slate-50 text-slate-600 font-medium border-b border-slate-200">
+            <tr>
+                <th class="px-6 py-4">Date</th>
+                <th class="px-6 py-4">Type</th>
+                <th class="px-6 py-4">Score</th>
+                <th class="px-6 py-4">Duration</th>
+                <th class="px-6 py-4">Result</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200">
+            @foreach (var item in Model)
+            {
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4 text-slate-500">@item.TestDate.ToLocalTime().ToString("MMM dd, yyyy HH:mm")</td>
+                    <td class="px-6 py-4 font-medium text-slate-900">@item.TestType</td>
+                    <td class="px-6 py-4 font-bold @(item.Score >= 80 ? "text-green-600" : item.Score >= 50 ? "text-yellow-600" : "text-red-600")">
+                        @Math.Round(item.Score)%
+                    </td>
+                    <td class="px-6 py-4 text-slate-500">@item.Duration.ToString(@"mm\:ss")</td>
+                    <td class="px-6 py-4">
+                        <span class="text-xs">@item.CorrectAnswers / @item.TotalQuestions</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (!Model.Any())
+    {
+        <div class="p-8 text-center text-slate-500">No test history yet.</div>
+    }
+</div>

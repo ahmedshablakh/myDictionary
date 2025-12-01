@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MyDictionary.Mobile.ViewModels"
+             x:Class="MyDictionary.Mobile.Views.AddWordPage"
+             x:DataType="vm:AddWordViewModel"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Word Input with Auto-Translate -->
+            <Label Text="Word" FontSize="14" FontAttributes="Bold" TextColor="#374151"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <Entry Grid.Column="0" 
+                       Text="{Binding WordText}" 
+                       Placeholder="Enter word..."
+                       FontSize="16"/>
+                <Button Grid.Column="1" 
+                        Text="🌐" 
+                        Command="{Binding AutoTranslateCommand}"
+                        BackgroundColor="#6366F1"
+                        TextColor="White"
+                        WidthRequest="50"
+                        CornerRadius="8"/>
+            </Grid>
+
+            <!-- Translation -->
+            <Label Text="Translation" FontSize="14" FontAttributes="Bold" TextColor="#374151" Margin="0,10,0,0"/>
+            <Entry Text="{Binding Translation}" 
+                   Placeholder="Translation..."
+                   FontSize="16"/>
+
+            <!-- Part of Speech -->
+            <Label Text="Part of Speech" FontSize="14" FontAttributes="Bold" TextColor="#374151" Margin="0,10,0,0"/>
+            <Picker SelectedIndex="{Binding SelectedPartOfSpeechIndex}"
+                    ItemsSource="{Binding PartOfSpeechList}"
+                    FontSize="16"/>
+
+            <!-- Difficulty -->
+            <Label Text="Difficulty" FontSize="14" FontAttributes="Bold" TextColor="#374151" Margin="0,10,0,0"/>
+            <Picker SelectedIndex="{Binding SelectedDifficultyIndex}"
+                    ItemsSource="{Binding DifficultyList}"
+                    FontSize="16"/>
+
+            <!-- Example Sentence with AI Generation -->
+            <Label Text="Example Sentence" FontSize="14" FontAttributes="Bold" TextColor="#374151" Margin="0,10,0,0"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <Editor Grid.Column="0" 
+                        Text="{Binding ExampleSentence}" 
+                        Placeholder="Example sentence..."
+                        HeightRequest="80"
+                        FontSize="14"/>
+                <Button Grid.Column="1" 
+                        Text="✨" 
+                        Command="{Binding GenerateExampleCommand}"
+                        BackgroundColor="#8B5CF6"
+                        TextColor="White"
+                        WidthRequest="50"
+                        CornerRadius="8"
+                        VerticalOptions="Start"/>
+            </Grid>
+
+            <!-- Example Translation -->
+            <Label Text="Example Translation" FontSize="14" FontAttributes="Bold" TextColor="#374151" Margin="0,10,0,0"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <Editor Grid.Column="0" 
+                        Text="{Binding ExampleTranslation}" 
+                        Placeholder="Translation of example..."
+                        HeightRequest="80"
+                        FontSize="14"/>
+                <Button Grid.Column="1" 
+                        Text="🌐" 
+                        Command="{Binding TranslateExampleCommand}"
+                        BackgroundColor="#48BB78"
+                        TextColor="White"
+                        WidthRequest="50"
+                        CornerRadius="8"
+                        VerticalOptions="Start"/>
+            </Grid>
+
+            <!-- Notes -->
+            <Label Text="Notes (Optional)" FontSize="14" FontAttributes="Bold" TextColor="#374151" Margin="0,10,0,0"/>
+            <Editor Text="{Binding Notes}" 
+                    Placeholder="Add notes..."
+                    HeightRequest="80"
+                    FontSize="14"/>
+
+            <!-- Action Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,20,0,0">
+                <Button Grid.Column="0" 
+                        Text="Cancel" 
+                        Command="{Binding CancelCommand}"
+                        BackgroundColor="#6B7280"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        HeightRequest="50"/>
+                
+                <Button Grid.Column="1" 
+                        Text="Save" 
+                        Command="{Binding SaveWordCommand}"
+                        BackgroundColor="#10B981"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        HeightRequest="50"/>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

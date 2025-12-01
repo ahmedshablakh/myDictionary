@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Primary Colors - Modern Gradient Blue/Purple -->
+    <Color x:Key="Primary">#667EEA</Color>
+    <Color x:Key="PrimaryDark">#5A67D8</Color>
+    <Color x:Key="PrimaryLight">#7F9CF5</Color>
+    
+    <!-- Secondary Colors - Vibrant Purple -->
+    <Color x:Key="Secondary">#9F7AEA</Color>
+    <Color x:Key="SecondaryDark">#805AD5</Color>
+    <Color x:Key="SecondaryLight">#B794F4</Color>
+    
+    <!-- Accent Colors -->
+    <Color x:Key="Accent">#48BB78</Color>
+    <Color x:Key="AccentDark">#38A169</Color>
+    
+    <!-- Success, Warning, Error - More Vibrant -->
+    <Color x:Key="Success">#48BB78</Color>
+    <Color x:Key="SuccessLight">#68D391</Color>
+    <Color x:Key="Warning">#F6AD55</Color>
+    <Color x:Key="WarningLight">#FBD38D</Color>
+    <Color x:Key="Error">#FC8181</Color>
+    <Color x:Key="ErrorLight">#FEB2B2</Color>
+    
+    <!-- Info Color -->
+    <Color x:Key="Info">#4299E1</Color>
+    <Color x:Key="InfoLight">#63B3ED</Color>
+    
+    <!-- Neutral Colors - Light Theme -->
+    <Color x:Key="Gray50">#F7FAFC</Color>
+    <Color x:Key="Gray100">#EDF2F7</Color>
+    <Color x:Key="Gray200">#E2E8F0</Color>
+    <Color x:Key="Gray300">#CBD5E0</Color>
+    <Color x:Key="Gray400">#A0AEC0</Color>
+    <Color x:Key="Gray500">#718096</Color>
+    <Color x:Key="Gray600">#4A5568</Color>
+    <Color x:Key="Gray700">#2D3748</Color>
+    <Color x:Key="Gray800">#1A202C</Color>
+    <Color x:Key="Gray900">#171923</Color>
+    
+    <!-- Background Colors - Light Mode -->
+    <Color x:Key="BackgroundLight">#FFFFFF</Color>
+    <Color x:Key="SurfaceLight">#F7FAFC</Color>
+    <Color x:Key="CardLight">#FFFFFF</Color>
+    
+    <!-- Background Colors - Dark Mode -->
+    <Color x:Key="BackgroundDark">#0A0E27</Color>
+    <Color x:Key="SurfaceDark">#1A1F3A</Color>
+    <Color x:Key="CardDark">#252B48</Color>
+    
+    <!-- Text Colors - Light Mode -->
+    <Color x:Key="TextPrimaryLight">#1A202C</Color>
+    <Color x:Key="TextSecondaryLight">#718096</Color>
+    <Color x:Key="TextTertiaryLight">#A0AEC0</Color>
+    
+    <!-- Text Colors - Dark Mode -->
+    <Color x:Key="TextPrimaryDark">#F7FAFC</Color>
+    <Color x:Key="TextSecondaryDark">#A0AEC0</Color>
+    <Color x:Key="TextTertiaryDark">#718096</Color>
+    
+    <!-- Border Colors -->
+    <Color x:Key="BorderLight">#E2E8F0</Color>
+    <Color x:Key="BorderDark">#2D3748</Color>
+    
+    <!-- Shadow Colors -->
+    <Color x:Key="ShadowLight">#1A202C</Color>
+    <Color x:Key="ShadowDark">#000000</Color>
+    
+    <!-- Gradient Colors -->
+    <Color x:Key="GradientStart">#667EEA</Color>
+    <Color x:Key="GradientEnd">#764BA2</Color>
+
+</ResourceDictionary>

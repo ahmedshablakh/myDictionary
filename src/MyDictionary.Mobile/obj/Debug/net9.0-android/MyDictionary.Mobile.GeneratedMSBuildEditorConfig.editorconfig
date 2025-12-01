@@ -1,0 +1,85 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = true
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.TargetFramework = net9.0-android
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = MyDictionary.Mobile
+build_property.ProjectDir = C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\src\MyDictionary.Mobile\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/aboar/.gemini/antigravity/scratch/MyDictionary/src/MyDictionary.Mobile/App.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MyDictionary.Mobile.App.xaml
+build_metadata.AdditionalFiles.TargetPath = App.xaml
+build_metadata.AdditionalFiles.RelativePath = App.xaml
+
+[C:/Users/aboar/.gemini/antigravity/scratch/MyDictionary/src/MyDictionary.Mobile/AppShell.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MyDictionary.Mobile.AppShell.xaml
+build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
+build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
+
+[C:/Users/aboar/.gemini/antigravity/scratch/MyDictionary/src/MyDictionary.Mobile/MainPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MyDictionary.Mobile.MainPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
+
+[C:/Users/aboar/.gemini/antigravity/scratch/MyDictionary/src/MyDictionary.Mobile/Resources/Styles/Colors.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MyDictionary.Mobile.Resources.Styles.Colors.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
+
+[C:/Users/aboar/.gemini/antigravity/scratch/MyDictionary/src/MyDictionary.Mobile/Resources/Styles/Styles.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MyDictionary.Mobile.Resources.Styles.Styles.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
+
+[C:/Users/aboar/.gemini/antigravity/scratch/MyDictionary/src/MyDictionary.Mobile/Views/AddWordPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MyDictionary.Mobile.Views.AddWordPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\AddWordPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\AddWordPage.xaml
+
+[C:/Users/aboar/.gemini/antigravity/scratch/MyDictionary/src/MyDictionary.Mobile/Views/DashboardPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MyDictionary.Mobile.Views.DashboardPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\DashboardPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\DashboardPage.xaml
+
+[C:/Users/aboar/.gemini/antigravity/scratch/MyDictionary/src/MyDictionary.Mobile/Views/FlashcardsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MyDictionary.Mobile.Views.FlashcardsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\FlashcardsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\FlashcardsPage.xaml
+
+[C:/Users/aboar/.gemini/antigravity/scratch/MyDictionary/src/MyDictionary.Mobile/Views/SettingsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MyDictionary.Mobile.Views.SettingsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\SettingsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\SettingsPage.xaml
+
+[C:/Users/aboar/.gemini/antigravity/scratch/MyDictionary/src/MyDictionary.Mobile/Views/TestsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MyDictionary.Mobile.Views.TestsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\TestsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\TestsPage.xaml
+
+[C:/Users/aboar/.gemini/antigravity/scratch/MyDictionary/src/MyDictionary.Mobile/Views/WordsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MyDictionary.Mobile.Views.WordsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\WordsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\WordsPage.xaml

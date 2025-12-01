@@ -1,0 +1,283 @@
+@model IEnumerable<MyDictionary.Core.Entities.Word>
+@using MyDictionary.Core.Entities
+
+@{
+    ViewData["Title"] = "Flashcards Review";
+}
+
+<div class="max-w-2xl mx-auto text-center">
+    <div class="mb-8 flex flex-col items-center relative">
+        <h1 class="text-2xl font-bold text-slate-900">
+            @(ViewBag.IsPracticeMode == true ? "Practice Mode" : "Daily Review")
+        </h1>
+        <p class="text-slate-500 mb-4">
+            @if (Model.Any())
+            {
+                <span>You have <span id="reviewCount" class="font-bold text-primary-600">@Model.Count()</span> words to review.</span>
+            }
+            else
+            {
+                <span>@ViewBag.Message</span>
+            }
+        </p>
+        
+        @if (ViewBag.IsPracticeMode != true)
+        {
+            <a asp-action="Index" asp-route-practiceMode="true" class="text-sm text-primary-600 hover:text-primary-700 font-medium bg-primary-50 px-4 py-2 rounded-full transition-colors">
+                <i class="fa-solid fa-shuffle mr-2"></i>Practice Random Words
+            </a>
+        }
+        else
+        {
+            <a asp-action="Index" class="text-sm text-slate-600 hover:text-slate-700 font-medium bg-slate-100 px-4 py-2 rounded-full transition-colors">
+                <i class="fa-solid fa-arrow-left mr-2"></i>Back to Daily Review
+            </a>
+        }
+    </div>
+
+    @if (Model.Any())
+    {
+        <!-- ... (Flashcard container code remains same) ... -->
+        <div id="flashcard-container" class="relative h-80 w-full perspective-1000 mb-8 cursor-pointer group">
+            <div id="card" class="relative w-full h-full transition-transform duration-500 transform-style-3d shadow-xl rounded-2xl">
+                
+                <!-- Front -->
+                <div class="absolute w-full h-full backface-hidden bg-white rounded-2xl border border-slate-200 flex flex-col items-center justify-center p-8">
+                    <span class="text-sm text-slate-400 uppercase tracking-wider font-medium mb-4">Word</span>
+                    <h2 id="card-word" class="text-4xl font-bold text-slate-800 mb-4">@Model.First().WordText</h2>
+                    <div class="flex gap-2 mb-4">
+                        <span id="card-pos" class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-sm font-medium">@Model.First().PartOfSpeech</span>
+                        <button id="btn-audio" class="w-8 h-8 rounded-full bg-primary-50 text-primary-600 hover:bg-primary-100 flex items-center justify-center transition-colors" onclick="playAudio(event)">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.First().ExampleSentence))
+                    {
+                        <div class="w-full max-w-md">
+                            <p id="card-front-sentence" class="text-slate-500 text-center italic text-sm mb-2">@Model.First().ExampleSentence</p>
+                            <button id="btn-play-sentence" class="mx-auto flex items-center gap-1 text-xs text-slate-400 hover:text-primary-600 transition-colors" onclick="playSentence(event)">
+                                <i class="fa-solid fa-volume-high"></i>
+                                <span>Listen to sentence</span>
+                            </button>
+                        </div>
+                    }
+                    <p class="text-slate-400 text-xs mt-6">Click card to flip</p>
+                </div>
+
+                <!-- Back -->
+                <div class="absolute w-full h-full backface-hidden bg-primary-600 rounded-2xl rotate-y-180 flex flex-col items-center justify-center p-8 text-white relative">
+                    <button onclick="editCurrentWord(event)" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors" title="Edit Word">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    
+                    <span class="text-sm text-primary-200 uppercase tracking-wider font-medium mb-4">Translation</span>
+                    <h2 id="card-translation" class="text-4xl font-bold mb-6">@Model.First().Translation</h2>
+                    
+                    @if (!string.IsNullOrEmpty(Model.First().ExampleSentence))
+                    {
+                        <div class="w-full max-w-md border-t border-primary-400/30 pt-4">
+                            <p id="card-sentence" class="text-primary-100 text-center italic text-sm mb-2">@Model.First().ExampleSentence</p>
+                            <div id="sentence-translation-area" class="text-center">
+                                <p id="sentence-translation" class="text-primary-200 text-xs italic">
+                                    <!-- Translation will be loaded here -->
+                                </p>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <p id="card-sentence" class="text-primary-100 text-center italic"></p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <button id="show-answer-btn" class="mb-8 px-8 py-3 bg-white border-2 border-slate-200 text-slate-600 rounded-xl font-bold hover:border-primary-300 hover:text-primary-600 transition-all shadow-sm">
+            Show Answer
+        </button>
+
+        <div id="controls" class="hidden grid-cols-3 gap-4 max-w-lg mx-auto">
+            <button onclick="submitReview(3)" class="group flex flex-col items-center justify-center py-4 px-2 bg-red-50 border-2 border-red-100 rounded-2xl hover:bg-red-100 hover:border-red-200 transition-all">
+                <span class="text-2xl mb-1">😓</span>
+                <span class="font-bold text-red-700">Hard</span>
+                <span class="text-xs text-red-500">Review soon</span>
+            </button>
+            <button onclick="submitReview(2)" class="group flex flex-col items-center justify-center py-4 px-2 bg-yellow-50 border-2 border-yellow-100 rounded-2xl hover:bg-yellow-100 hover:border-yellow-200 transition-all">
+                <span class="text-2xl mb-1">😐</span>
+                <span class="font-bold text-yellow-700">Medium</span>
+                <span class="text-xs text-yellow-600">Review later</span>
+            </button>
+            <button onclick="submitReview(1)" class="group flex flex-col items-center justify-center py-4 px-2 bg-green-50 border-2 border-green-100 rounded-2xl hover:bg-green-100 hover:border-green-200 transition-all">
+                <span class="text-2xl mb-1">😎</span>
+                <span class="font-bold text-green-700">Easy</span>
+                <span class="text-xs text-green-600">Got it!</span>
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="bg-white rounded-xl p-12 border border-slate-200 shadow-sm">
+            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">All Done!</h3>
+            <p class="text-slate-500 mb-8">You've completed all your reviews for today.</p>
+            <div class="flex justify-center gap-4">
+                <a asp-action="Index" asp-route-practiceMode="true" class="px-6 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors">
+                    Practice More Words
+                </a>
+                <a asp-controller="Words" asp-action="Index" class="px-6 py-2 bg-white border border-slate-300 text-slate-700 rounded-lg font-medium hover:bg-slate-50 transition-colors">
+                    Manage Words
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .perspective-1000 { perspective: 1000px; }
+    .transform-style-3d { transform-style: preserve-3d; }
+    .backface-hidden { backface-visibility: hidden; }
+    .rotate-y-180 { transform: rotateY(180deg); }
+</style>
+
+@if (Model.Any())
+{
+    <script>
+        // Store words in JS array
+        const words = @Json.Serialize(Model.Select(w => new { 
+            id = w.Id, 
+            wordText = w.WordText, 
+            translation = w.Translation, 
+            partOfSpeech = w.PartOfSpeech.ToString(),
+            exampleSentence = w.ExampleSentence,
+            languageFrom = w.LanguageFrom
+        }));
+
+        let currentIndex = 0;
+        let isFlipped = false;
+        const card = document.getElementById('card');
+        const controls = document.getElementById('controls');
+        const showAnswerBtn = document.getElementById('show-answer-btn');
+
+        // Flip Logic
+        function flipCard() {
+            if (isFlipped) return;
+            isFlipped = true;
+            card.classList.add('rotate-y-180');
+            showAnswerBtn.classList.add('hidden');
+            setTimeout(() => controls.classList.replace('hidden', 'grid'), 300);
+        }
+
+        // Card click interaction
+        document.getElementById('flashcard-container').addEventListener('click', function(e) {
+            if (e.target.closest('#btn-audio') || e.target.closest('button')) return; 
+            flipCard();
+        });
+
+        // Show Answer Button
+        showAnswerBtn.addEventListener('click', flipCard);
+
+        function playSentence(e) {
+            e.stopPropagation();
+            const word = words[currentIndex];
+            if (word.exampleSentence) {
+                const utterance = new SpeechSynthesisUtterance(word.exampleSentence);
+                utterance.lang = 'en-US'; // Always play in English
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function editCurrentWord(e) {
+            e.stopPropagation();
+            const word = words[currentIndex];
+            window.location.href = `/Words/Edit/${word.id}?returnUrl=/Flashcards`;
+        }
+
+        function playAudio(e) {
+            e.stopPropagation();
+            const word = words[currentIndex];
+            const utterance = new SpeechSynthesisUtterance(word.wordText);
+            // utterance.lang = word.languageFrom; 
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function translateCurrentSentence() {
+            const word = words[currentIndex];
+            if (word.exampleSentence) {
+                fetch(`/Words/GetTranslation?text=${encodeURIComponent(word.exampleSentence)}&from=${word.languageFrom}&to=ar`)
+                    .then(res => res.json())
+                    .then(data => {
+                        document.getElementById('sentence-translation').textContent = data.translation;
+                    })
+                    .catch(err => console.error('Translation failed:', err));
+            }
+        }
+
+        // Translate sentence when card is flipped
+        card.addEventListener('transitionend', function() {
+            if (isFlipped) {
+                translateCurrentSentence();
+            }
+        });
+
+        function submitReview(difficulty) {
+            const word = words[currentIndex];
+            
+            // Send to server
+            fetch('/Flashcards/SubmitReview', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `id=${word.id}&difficulty=${difficulty}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    loadNextCard();
+                }
+            });
+        }
+
+        function loadNextCard() {
+            currentIndex++;
+            
+            // Reset card state
+            isFlipped = false;
+            card.classList.remove('rotate-y-180');
+            controls.classList.replace('grid', 'hidden');
+            showAnswerBtn.classList.remove('hidden');
+
+            if (currentIndex < words.length) {
+                // Update UI with next word
+                setTimeout(() => {
+                    const nextWord = words[currentIndex];
+                    document.getElementById('card-word').textContent = nextWord.wordText;
+                    document.getElementById('card-translation').textContent = nextWord.translation;
+                    document.getElementById('card-pos').textContent = nextWord.partOfSpeech;
+                    document.getElementById('card-sentence').textContent = nextWord.exampleSentence || '';
+                    
+                    // Update front sentence if element exists
+                    const frontSentence = document.getElementById('card-front-sentence');
+                    if (frontSentence) {
+                        frontSentence.textContent = nextWord.exampleSentence || '';
+                    }
+                    
+                    // Clear sentence translation
+                    const sentenceTranslation = document.getElementById('sentence-translation');
+                    if (sentenceTranslation) {
+                        sentenceTranslation.textContent = '';
+                    }
+                    
+                    document.getElementById('reviewCount').textContent = words.length - currentIndex;
+                }, 300); // Wait for flip back animation
+            } else {
+                // No more words
+                location.reload();
+            }
+        }
+    </script>
+}
+
+

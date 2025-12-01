@@ -1,0 +1,84 @@
+@model IEnumerable<MyDictionary.Core.Entities.DailyChallenge>
+
+@{
+    ViewData["Title"] = "Daily Challenges";
+}
+
+<div class="max-w-4xl mx-auto">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-900 dark:text-slate-100">Daily Challenges</h1>
+            <p class="text-slate-500 dark:text-slate-400">Complete tasks to earn XP and build your streak!</p>
+        </div>
+        <div class="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 px-4 py-2 rounded-lg font-bold flex items-center gap-2">
+            <i class="fa-solid fa-trophy"></i>
+            <span>Total XP: @Model.Where(c => c.IsCompleted).Sum(c => c.XPReward)</span>
+        </div>
+    </div>
+
+    <div class="grid gap-6">
+        @foreach (var challenge in Model)
+        {
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 transition-all hover:shadow-md @(challenge.IsCompleted ? "opacity-75" : "")">
+                <div class="flex items-start justify-between">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center @(challenge.IsCompleted ? "bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400" : "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400")">
+                            <i class="fa-solid @(challenge.IsCompleted ? "fa-check" : "fa-star") text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-900 dark:text-slate-100">@challenge.ChallengeName</h3>
+                            <p class="text-slate-600 dark:text-slate-400 mb-2">@challenge.Description</p>
+                            <div class="flex items-center gap-2 text-sm font-medium text-yellow-600 dark:text-yellow-400">
+                                <i class="fa-solid fa-bolt"></i>
+                                <span>@challenge.XPReward XP</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    @if (challenge.IsCompleted)
+                    {
+                        <span class="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 px-3 py-1 rounded-full text-sm font-bold">
+                            Completed
+                        </span>
+                    }
+                    else
+                    {
+                        <button onclick="completeChallenge(@challenge.Id, this)" class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Mark Complete
+                        </button>
+                    }
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="mt-4">
+                    <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
+                        <span>Progress</span>
+                        <span>@challenge.CurrentCount / @challenge.TargetCount</span>
+                    </div>
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
+                        @{
+                            var percentage = (double)challenge.CurrentCount / challenge.TargetCount * 100;
+                        }
+                        <div class="bg-primary-600 h-2 rounded-full transition-all duration-500" style="width: @percentage%"></div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    function completeChallenge(id, btn) {
+        // In a real app, this would be automatic based on actions.
+        // For demo, we allow manual completion.
+        fetch(`/DailyChallenges/Complete/${id}`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            }
+        });
+    }
+</script>

@@ -1,0 +1,365 @@
+@model MyDictionary.Web.Controllers.TestViewModel
+
+@{
+    ViewData["Title"] = "Quiz in Progress";
+}
+
+<div class="max-w-2xl mx-auto">
+    <!-- Progress Bar -->
+    <div class="mb-8">
+        <div class="flex justify-between text-sm font-medium text-slate-500 mb-2">
+            <span>Question <span id="current-q">1</span> of @Model.Questions.Count</span>
+            <span id="timer">00:00</span>
+        </div>
+        <div class="w-full bg-slate-200 rounded-full h-2">
+            <div id="progress-bar" class="bg-primary-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <!-- Question Card -->
+    <div id="quiz-container" class="bg-white rounded-xl shadow-lg border border-slate-200 p-8 text-center">
+        <div id="question-area">
+            <span class="inline-block px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-medium mb-4" id="question-label">Translate this</span>
+            
+            <!-- Audio Button for Listening Test -->
+            <div id="audio-area" class="hidden mb-6">
+                <button onclick="playAudio()" class="w-20 h-20 rounded-full bg-primary-100 text-primary-600 hover:bg-primary-200 flex items-center justify-center mx-auto transition-colors">
+                    <i class="fa-solid fa-volume-high text-3xl"></i>
+                </button>
+                <p class="text-sm text-slate-500 mt-2">Click to listen</p>
+            </div>
+
+            <div class="flex items-center justify-center gap-4 mb-8">
+                <h2 id="question-text" class="text-3xl font-bold text-slate-900"></h2>
+                <button id="inline-audio-btn" onclick="playAudio()" class="hidden w-10 h-10 rounded-full bg-slate-100 text-slate-600 hover:bg-primary-100 hover:text-primary-600 items-center justify-center transition-colors" title="Listen to word">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+            </div>
+            
+            <!-- Multiple Choice Options -->
+            <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Options injected via JS -->
+            </div>
+
+            <!-- Typing Input -->
+            <div id="typing-area" class="hidden">
+                <input type="text" id="answer-input" class="w-full text-center text-xl p-4 border-b-2 border-slate-300 focus:border-primary-600 focus:outline-none transition-colors" placeholder="Type answer here..." autocomplete="off">
+                <button onclick="checkTypingAnswer()" class="mt-6 bg-primary-600 text-white px-8 py-3 rounded-xl font-medium hover:bg-primary-700 transition-colors">
+                    Submit Answer
+                </button>
+            </div>
+
+            <!-- Speaking Area -->
+            <div id="speaking-area" class="hidden">
+                <button id="mic-btn" onclick="startListening()" class="w-24 h-24 rounded-full bg-slate-100 text-slate-600 hover:bg-primary-100 hover:text-primary-600 flex items-center justify-center mx-auto transition-all duration-300 shadow-sm border-2 border-slate-200">
+                    <i class="fa-solid fa-microphone text-4xl"></i>
+                </button>
+                <p id="listening-status" class="text-sm text-slate-500 mt-4 h-6">Click microphone to speak</p>
+                <div id="spoken-text" class="mt-4 text-xl font-medium text-slate-800 min-h-[2rem]"></div>
+                
+                <button id="speak-submit-btn" onclick="submitSpokenAnswer()" class="hidden mt-6 bg-primary-600 text-white px-8 py-3 rounded-xl font-medium hover:bg-primary-700 transition-colors">
+                    Check Answer
+                </button>
+            </div>
+        </div>
+
+        <!-- Feedback Area -->
+        <div id="feedback-area" class="hidden mt-6 pt-6 border-t border-slate-100">
+            <div id="feedback-icon" class="text-4xl mb-2"></div>
+            <h3 id="feedback-title" class="text-xl font-bold mb-1"></h3>
+            <p id="feedback-text" class="text-slate-500 mb-6"></p>
+            <button onclick="nextQuestion()" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-medium hover:bg-slate-800 transition-colors">
+                Next Question
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = @Json.Serialize(Model.Questions);
+    const testType = '@Model.Type';
+    let currentIndex = 0;
+    let correctCount = 0;
+    let startTime = Date.now();
+    let timerInterval;
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            const seconds = Math.floor((Date.now() - startTime) / 1000);
+            const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const secs = (seconds % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${mins}:${secs}`;
+        }, 1000);
+    }
+
+    function playAudio() {
+        const q = questions[currentIndex];
+        // Use browser's built-in speech synthesis
+        const utterance = new SpeechSynthesisUtterance(q.wordText);
+        // Try to detect language or default to English/Target language
+        // utterance.lang = 'en-US'; 
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // Speech Recognition Setup
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition;
+    if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.lang = 'en-US'; // Default, should be dynamic based on word language
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.onstart = function() {
+            document.getElementById('listening-status').textContent = 'Listening...';
+            const btn = document.getElementById('mic-btn');
+            btn.classList.add('bg-red-100', 'text-red-600', 'animate-pulse');
+            btn.classList.remove('bg-slate-100', 'text-slate-600');
+        };
+
+        recognition.onend = function() {
+            document.getElementById('listening-status').textContent = 'Click microphone to speak';
+            const btn = document.getElementById('mic-btn');
+            btn.classList.remove('bg-red-100', 'text-red-600', 'animate-pulse');
+            btn.classList.add('bg-slate-100', 'text-slate-600');
+        };
+
+        recognition.onresult = function(event) {
+            const transcript = event.results[0][0].transcript;
+            document.getElementById('spoken-text').textContent = transcript;
+            
+            // Show submit button for speaking mode
+            const submitBtn = document.getElementById('speak-submit-btn');
+            if(submitBtn) submitBtn.classList.remove('hidden');
+        };
+    }
+
+    function startListening() {
+        if (recognition) {
+            try {
+                recognition.start();
+            } catch (e) {
+                // Already started
+                recognition.stop();
+            }
+        } else {
+            alert('Speech recognition is not supported in this browser.');
+        }
+    }
+
+    function submitSpokenAnswer() {
+        const text = document.getElementById('spoken-text').textContent;
+        if (!text) return;
+        
+        const correct = questions[currentIndex].wordText;
+        checkAnswer(text, correct);
+    }
+
+    function loadQuestion() {
+        if (currentIndex >= questions.length) {
+            finishTest();
+            return;
+        }
+
+        const q = questions[currentIndex];
+        document.getElementById('current-q').textContent = currentIndex + 1;
+        document.getElementById('progress-bar').style.width = `${(currentIndex / questions.length) * 100}%`;
+        
+        // Reset UI
+        document.getElementById('question-area').classList.remove('hidden');
+        document.getElementById('feedback-area').classList.add('hidden');
+        document.getElementById('answer-input').value = '';
+        document.getElementById('spoken-text').textContent = '';
+        
+        // Hide speak submit button
+        const submitBtn = document.getElementById('speak-submit-btn');
+        if(submitBtn) submitBtn.classList.add('hidden');
+
+        const questionText = document.getElementById('question-text');
+        const audioArea = document.getElementById('audio-area');
+        const label = document.getElementById('question-label');
+        const optionsGrid = document.getElementById('options-grid');
+        const typingArea = document.getElementById('typing-area');
+        const speakingArea = document.getElementById('speaking-area');
+        const inlineAudioBtn = document.getElementById('inline-audio-btn');
+
+        // Hide all specific areas first
+        audioArea.classList.add('hidden');
+        optionsGrid.classList.add('hidden');
+        typingArea.classList.add('hidden');
+        speakingArea.classList.add('hidden');
+        questionText.classList.remove('hidden');
+        inlineAudioBtn.classList.add('hidden');
+        inlineAudioBtn.style.display = 'none';
+
+        if (testType === 'Listening') {
+            questionText.classList.add('hidden');
+            audioArea.classList.remove('hidden');
+            label.textContent = 'Listen and Type';
+            setTimeout(playAudio, 500);
+            typingArea.classList.remove('hidden');
+            setTimeout(() => document.getElementById('answer-input').focus(), 100);
+        } 
+        else if (testType === 'MultipleChoice') {
+            questionText.textContent = q.wordText;
+            label.textContent = 'Translate this';
+            
+            // Show inline audio button
+            inlineAudioBtn.classList.remove('hidden');
+            inlineAudioBtn.style.display = 'flex';
+            
+            optionsGrid.classList.remove('hidden');
+            optionsGrid.innerHTML = '';
+            
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'p-4 rounded-xl border-2 border-slate-100 hover:border-primary-200 hover:bg-primary-50 text-slate-700 font-medium transition-all';
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer(opt, q.correctAnswer);
+                optionsGrid.appendChild(btn);
+            });
+        } 
+        else if (testType === 'Typing') { // Speaking Mode
+            console.log('Speaking Mode:', q);
+            questionText.classList.remove('hidden');
+            questionText.style.display = 'block';
+            questionText.textContent = q.correctAnswer;
+            label.textContent = 'Speak this word';
+            speakingArea.classList.remove('hidden');
+        }
+        else {
+            // Fallback
+            questionText.textContent = q.wordText;
+            label.textContent = 'Translate this';
+            typingArea.classList.remove('hidden');
+        }
+    }
+
+    function checkAnswer(selected, correct) {
+        // Remove punctuation and convert to lower case for better matching
+        const cleanSelected = selected.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").trim();
+        const cleanCorrect = correct.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").trim();
+        
+        const isCorrect = cleanSelected === cleanCorrect;
+        if (isCorrect) correctCount++;
+
+        showFeedback(isCorrect, correct);
+    }
+
+    function checkTypingAnswer() {
+        const input = document.getElementById('answer-input').value;
+        const correct = testType === 'Listening' ? questions[currentIndex].wordText : questions[currentIndex].correctAnswer;
+        checkAnswer(input, correct);
+    }
+
+    function showFeedback(isCorrect, correctAnswer) {
+        document.getElementById('question-area').classList.add('hidden');
+        const feedback = document.getElementById('feedback-area');
+        feedback.classList.remove('hidden');
+
+        const icon = document.getElementById('feedback-icon');
+        const title = document.getElementById('feedback-title');
+        const text = document.getElementById('feedback-text');
+
+        if (isCorrect) {
+            icon.innerHTML = '<i class="fa-solid fa-circle-check text-green-500"></i>';
+            title.textContent = 'Correct!';
+            title.className = 'text-xl font-bold mb-1 text-green-600';
+            text.textContent = 'Great job, keep going!';
+        } else {
+            icon.innerHTML = '<i class="fa-solid fa-circle-xmark text-red-500"></i>';
+            title.textContent = 'Incorrect';
+            title.className = 'text-xl font-bold mb-1 text-red-600';
+            text.innerHTML = `The correct answer was: <span class="font-bold text-slate-800">${correctAnswer}</span>`;
+            
+            // Speak the correct answer if it was a Speaking test
+            if (testType === 'Typing') {
+                const utterance = new SpeechSynthesisUtterance(correctAnswer);
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        const nextBtn = document.querySelector('#feedback-area button');
+        if (currentIndex === questions.length - 1) {
+            nextBtn.textContent = 'Finish Test';
+            nextBtn.className = 'bg-primary-600 text-white px-8 py-3 rounded-xl font-medium hover:bg-primary-700 transition-colors';
+        } else {
+            nextBtn.textContent = 'Next Question';
+            nextBtn.className = 'bg-slate-900 text-white px-8 py-3 rounded-xl font-medium hover:bg-slate-800 transition-colors';
+        }
+    }
+
+    function nextQuestion() {
+        currentIndex++;
+        if (currentIndex >= questions.length) {
+            finishTest();
+        } else {
+            loadQuestion();
+        }
+    }
+
+    function finishTest() {
+        clearInterval(timerInterval);
+        const duration = Math.floor((Date.now() - startTime) / 1000);
+        
+        // Show loading state
+        const nextBtn = document.querySelector('#feedback-area button');
+        if(nextBtn) {
+            nextBtn.textContent = 'Submitting...';
+            nextBtn.disabled = true;
+        }
+
+        const data = {
+            type: testType,
+            totalQuestions: questions.length,
+            correctAnswers: correctCount,
+            wrongAnswers: questions.length - correctCount,
+            durationSeconds: duration
+        };
+
+        fetch('/Tests/Submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(async res => {
+            const data = await res.json();
+            if (!res.ok) {
+                throw new Error(data.message || 'Server error');
+            }
+            return data;
+        })
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.redirectUrl;
+            } else {
+                alert('Error submitting test: ' + (data.message || 'Unknown error'));
+                if(nextBtn) {
+                    nextBtn.textContent = 'Try Again';
+                    nextBtn.disabled = false;
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to submit test results. Please try again.\nError: ' + error.message);
+            if(nextBtn) {
+                nextBtn.textContent = 'Try Again';
+                nextBtn.disabled = false;
+            }
+        });
+    }
+
+    // Handle Enter key for typing test
+    document.getElementById('answer-input').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            checkTypingAnswer();
+        }
+    });
+
+    startTimer();
+    loadQuestion();
+</script>

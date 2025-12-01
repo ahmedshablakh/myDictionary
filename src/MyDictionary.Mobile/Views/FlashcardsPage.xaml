@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MyDictionary.Mobile.ViewModels"
+             x:Class="MyDictionary.Mobile.Views.FlashcardsPage"
+             x:DataType="vm:FlashcardsViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource BackgroundDark}}">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20" RowSpacing="20">
+        
+        <!-- Progress Header -->
+        <Border Grid.Row="0" Style="{StaticResource CardBorder}">
+            <Grid ColumnDefinitions="*,Auto">
+                <VerticalStackLayout Grid.Column="0" Spacing="5">
+                    <Label Text="{Binding ProgressText}" 
+                           Style="{StaticResource BodyText}"/>
+                    <ProgressBar Progress="{Binding Progress}" 
+                                 ProgressColor="{StaticResource Primary}"
+                                 HeightRequest="6"/>
+                </VerticalStackLayout>
+                <Label Grid.Column="1" 
+                       Text="{Binding Flashcards.Count, StringFormat='{0} cards'}" 
+                       Style="{StaticResource CaptionText}"
+                       VerticalOptions="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- Flashcard -->
+        <Border Grid.Row="1" 
+               Style="{StaticResource CardBorder}"
+               Padding="40"
+               IsVisible="{Binding HasCards}">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding FlipCardCommand}"/>
+            </Border.GestureRecognizers>
+
+            <Grid>
+                <!-- Front Side (Word) -->
+                <VerticalStackLayout Spacing="20" 
+                                     VerticalOptions="Center"
+                                     IsVisible="{Binding IsFlipped, Converter={StaticResource InvertedBoolConverter}}">
+                    <Label Text="🎴" 
+                           FontSize="48" 
+                           HorizontalOptions="Center"/>
+                    <Label Text="{Binding CurrentCard.WordText}" 
+                           FontSize="36" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center"
+                           TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight}, Dark={StaticResource TextPrimaryDark}}"/>
+                    
+                    <!-- Speaker Button -->
+                    <Button Text="🔊 Listen"
+                            Command="{Binding SpeakWordCommand}"
+                            BackgroundColor="{StaticResource Primary}"
+                            TextColor="White"
+                            CornerRadius="20"
+                            Padding="20,10"
+                            HorizontalOptions="Center"/>
+                    
+                    <Label Text="Tap to reveal" 
+                           Style="{StaticResource CaptionText}"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <!-- Back Side (Translation + Example) -->
+                <VerticalStackLayout Spacing="20" 
+                                     VerticalOptions="Center"
+                                     IsVisible="{Binding IsFlipped}">
+                    <Label Text="{Binding CurrentCard.Translation}" 
+                           FontSize="32" 
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}"/>
+                    
+                    <!-- Translation Speaker Button -->
+                    <Button Text="🔊 Listen Translation"
+                            Command="{Binding SpeakTranslationCommand}"
+                            BackgroundColor="{StaticResource Secondary}"
+                            TextColor="White"
+                            CornerRadius="20"
+                            Padding="20,10"
+                            HorizontalOptions="Center"/>
+                    
+                    <BoxView HeightRequest="2" 
+                             Color="{StaticResource BorderLight}"
+                             HorizontalOptions="Center"
+                             WidthRequest="100"
+                             Margin="0,10"/>
+                    
+                    <Label Text="{Binding CurrentCard.ExampleSentence}" 
+                           FontSize="16" 
+                           HorizontalOptions="Center"
+                           TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"
+                           HorizontalTextAlignment="Center"
+                           LineBreakMode="WordWrap"/>
+                    
+                    <!-- Example Speaker Button -->
+                    <Button Text="🔊 Listen Example"
+                            Command="{Binding SpeakExampleCommand}"
+                            BackgroundColor="{StaticResource Accent}"
+                            TextColor="White"
+                            CornerRadius="20"
+                            Padding="15,8"
+                            FontSize="14"
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding CurrentCard.ExampleSentence, Converter={StaticResource StringNotEmptyConverter}}"/>
+                    
+                    <Label Text="{Binding CurrentCard.PartOfSpeech}" 
+                           Style="{StaticResource CaptionText}"
+                           HorizontalOptions="Center"
+                           Margin="0,10,0,0"/>
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+
+        <!-- Empty State -->
+        <VerticalStackLayout Grid.Row="1" 
+                             VerticalOptions="Center" 
+                             HorizontalOptions="Center" 
+                             Spacing="15"
+                             IsVisible="{Binding HasCards, Converter={StaticResource InvertedBoolConverter}}">
+            <Label Text="🎉" FontSize="64" HorizontalOptions="Center"/>
+            <Label Text="All Done!" 
+                   Style="{StaticResource PageTitle}"
+                   HorizontalOptions="Center"/>
+            <Label Text="No cards due for review right now" 
+                   Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center"/>
+            <Button Text="Back to Dashboard" 
+                    Command="{Binding NavigateToDashboardCommand}"
+                    Style="{StaticResource PrimaryButton}"
+                    Margin="0,20,0,0"/>
+        </VerticalStackLayout>
+
+        <!-- Difficulty Buttons -->
+        <Grid Grid.Row="2" 
+              ColumnDefinitions="*,*,*" 
+              ColumnSpacing="10"
+              IsVisible="{Binding IsFlipped}">
+            
+            <Button Grid.Column="0" 
+                    Text="😓 Hard" 
+                    Command="{Binding SubmitDifficultyCommand}"
+                    CommandParameter="Hard"
+                    Style="{StaticResource DangerButton}"/>
+
+            <Button Grid.Column="1" 
+                    Text="😐 Medium" 
+                    Command="{Binding SubmitDifficultyCommand}"
+                    CommandParameter="Medium"
+                    BackgroundColor="{StaticResource Warning}"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="12"
+                    HeightRequest="50"/>
+
+            <Button Grid.Column="2" 
+                    Text="😎 Easy" 
+                    Command="{Binding SubmitDifficultyCommand}"
+                    CommandParameter="Easy"
+                    Style="{StaticResource SuccessButton}"/>
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

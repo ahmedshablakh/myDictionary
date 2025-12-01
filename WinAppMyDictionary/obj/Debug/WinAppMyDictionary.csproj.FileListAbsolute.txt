@@ -1,0 +1,10 @@
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\WinAppMyDictionary\bin\Debug\WinAppMyDictionary.exe.config
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\WinAppMyDictionary\bin\Debug\WinAppMyDictionary.exe
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\WinAppMyDictionary\bin\Debug\WinAppMyDictionary.pdb
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\WinAppMyDictionary\obj\Debug\WinAppMyDictionary.csproj.AssemblyReference.cache
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\WinAppMyDictionary\obj\Debug\WinAppMyDictionary.Properties.Resources.resources
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\WinAppMyDictionary\obj\Debug\WinAppMyDictionary.csproj.GenerateResource.cache
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\WinAppMyDictionary\obj\Debug\WinAppMyDictionary.csproj.CoreCompileInputs.cache
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\WinAppMyDictionary\obj\Debug\WinAppMyDictionary.exe
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\WinAppMyDictionary\obj\Debug\WinAppMyDictionary.pdb
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\WinAppMyDictionary\obj\Debug\WinAppMyDictionary.exe.config

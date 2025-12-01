@@ -1,0 +1,803 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyDictionary.Mobile</name>
+    </assembly>
+    <members>
+        <member name="T:MyDictionary.Mobile.ViewModels.AddWordViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.WordId">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.wordId"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.WordText">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.wordText"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.Translation">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.translation"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.ExampleSentence">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.exampleSentence"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.ExampleTranslation">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.exampleTranslation"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.Notes">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.notes"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.SelectedPartOfSpeech">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.selectedPartOfSpeech"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.SelectedDifficulty">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.selectedDifficulty"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.LanguageFrom">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.languageFrom"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.LanguageTo">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.languageTo"/>
+        </member>
+        <member name="M:MyDictionary.Mobile.ViewModels.AddWordViewModel.OnWordIdChanged(System.Int32)">
+            <summary>Executes the logic for when <see cref="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.WordId"/> just changed.</summary>
+            <param name="value">The new property value that was set.</param>
+            <remarks>This method is invoked right after the value of <see cref="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.WordId"/> is changed.</remarks>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.autoTranslateCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.AutoTranslateCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.AutoTranslateCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.AddWordViewModel.AutoTranslateAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.generateExampleCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.GenerateExampleCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.GenerateExampleCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.AddWordViewModel.GenerateExampleAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.translateExampleCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.TranslateExampleCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.TranslateExampleCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.AddWordViewModel.TranslateExampleAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.saveWordCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.SaveWordCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.SaveWordCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.AddWordViewModel.SaveWordAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.AddWordViewModel.cancelCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.CancelCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.AddWordViewModel.CancelCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.AddWordViewModel.CancelAsync"/>.</summary>
+        </member>
+        <member name="T:MyDictionary.Mobile.ViewModels.BaseViewModel">
+            <inheritdoc/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.BaseViewModel.IsBusy">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.BaseViewModel.isBusy"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.BaseViewModel.Title">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.BaseViewModel.title"/>
+        </member>
+        <member name="T:MyDictionary.Mobile.ViewModels.DashboardViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.TotalWords">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.totalWords"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.WordsDueToday">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.wordsDueToday"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.MasteredWords">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.masteredWords"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.LearningStreak">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.learningStreak"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.MasteryPercentage">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.masteryPercentage"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.MasteryProgress">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.masteryProgress"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.ReviewsCompletedToday">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.reviewsCompletedToday"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.ReviewProgress">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.reviewProgress"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.WordsThisWeek">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.wordsThisWeek"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.WeeklySuccessRate">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.weeklySuccessRate"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.StudyDaysThisWeek">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.studyDaysThisWeek"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.MotivationalMessage">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.motivationalMessage"/>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.loadDashboardCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.LoadDashboardCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.LoadDashboardCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.DashboardViewModel.LoadDashboardAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.navigateToFlashcardsCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.NavigateToFlashcardsCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.NavigateToFlashcardsCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.DashboardViewModel.NavigateToFlashcardsAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.navigateToWordsCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.NavigateToWordsCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.NavigateToWordsCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.DashboardViewModel.NavigateToWordsAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.DashboardViewModel.navigateToTestsCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.NavigateToTestsCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.DashboardViewModel.NavigateToTestsCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.DashboardViewModel.NavigateToTestsAsync"/>.</summary>
+        </member>
+        <member name="T:MyDictionary.Mobile.ViewModels.FlashcardsViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.Flashcards">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.flashcards"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.CurrentCard">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.currentCard"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.CurrentIndex">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.currentIndex"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.IsFlipped">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.isFlipped"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.Progress">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.progress"/>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.loadFlashcardsCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.LoadFlashcardsCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.LoadFlashcardsCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.LoadFlashcardsAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.flipCardCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.FlipCardCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.FlipCardCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.FlipCard"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.submitDifficultyCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.SubmitDifficultyCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.SubmitDifficultyCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.SubmitDifficultyAsync(System.String)"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.navigateToDashboardCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.NavigateToDashboardCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.NavigateToDashboardCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.NavigateToDashboardAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.speakWordCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.SpeakWordCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.SpeakWordCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.SpeakWordAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.speakTranslationCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.SpeakTranslationCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.SpeakTranslationCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.SpeakTranslationAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.speakExampleCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.SpeakExampleCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.SpeakExampleCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.FlashcardsViewModel.SpeakExampleAsync"/>.</summary>
+        </member>
+        <member name="T:MyDictionary.Mobile.ViewModels.SettingsViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.SettingsViewModel.IsDarkMode">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.SettingsViewModel.isDarkMode"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.SettingsViewModel.DefaultSourceLanguage">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.SettingsViewModel.defaultSourceLanguage"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.SettingsViewModel.DefaultTargetLanguage">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.SettingsViewModel.defaultTargetLanguage"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.SettingsViewModel.DailyGoal">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.SettingsViewModel.dailyGoal"/>
+        </member>
+        <member name="M:MyDictionary.Mobile.ViewModels.SettingsViewModel.OnIsDarkModeChanged(System.Boolean)">
+            <summary>Executes the logic for when <see cref="P:MyDictionary.Mobile.ViewModels.SettingsViewModel.IsDarkMode"/> just changed.</summary>
+            <param name="value">The new property value that was set.</param>
+            <remarks>This method is invoked right after the value of <see cref="P:MyDictionary.Mobile.ViewModels.SettingsViewModel.IsDarkMode"/> is changed.</remarks>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.SettingsViewModel.clearDataCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.SettingsViewModel.ClearDataCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.SettingsViewModel.ClearDataCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.SettingsViewModel.ClearDataAsync"/>.</summary>
+        </member>
+        <member name="T:MyDictionary.Mobile.ViewModels.TestsViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.IsTesting">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.TestsViewModel.isTesting"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.IsMenuVisible">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.TestsViewModel.isMenuVisible"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.QuestionText">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.TestsViewModel.questionText"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.Options">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.TestsViewModel.options"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.Score">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.TestsViewModel.score"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.CurrentQuestionIndex">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.TestsViewModel.currentQuestionIndex"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.TotalQuestions">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.TestsViewModel.totalQuestions"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.IsMultipleChoice">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.TestsViewModel.isMultipleChoice"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.IsTypingTest">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.TestsViewModel.isTypingTest"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.TypedAnswer">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.TestsViewModel.typedAnswer"/>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.TestsViewModel.startMultipleChoiceCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.TestsViewModel.StartMultipleChoiceCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.StartMultipleChoiceCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.TestsViewModel.StartMultipleChoiceAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.TestsViewModel.startTypingTestCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.TestsViewModel.StartTypingTestCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.StartTypingTestCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.TestsViewModel.StartTypingTestAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.TestsViewModel.submitAnswerCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.TestsViewModel.SubmitAnswerCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.SubmitAnswerCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.TestsViewModel.SubmitAnswerAsync(System.String)"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.TestsViewModel.endTestCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.TestsViewModel.EndTestCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.EndTestCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.TestsViewModel.EndTest"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.TestsViewModel.cancelTestCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.TestsViewModel.CancelTestCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.CancelTestCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.TestsViewModel.CancelTestAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.TestsViewModel.startListeningTestCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.TestsViewModel.StartListeningTestCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.StartListeningTestCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.TestsViewModel.StartListeningTestAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.TestsViewModel.startMatchingTestCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.TestsViewModel.StartMatchingTestCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.StartMatchingTestCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.TestsViewModel.StartMatchingTestAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.TestsViewModel.speakQuestionCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.TestsViewModel.SpeakQuestionCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.SpeakQuestionCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.TestsViewModel.SpeakQuestionAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.TestsViewModel.speakAnswerCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.TestsViewModel.SpeakAnswerCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.TestsViewModel.SpeakAnswerCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.TestsViewModel.SpeakAnswerAsync"/>.</summary>
+        </member>
+        <member name="T:MyDictionary.Mobile.ViewModels.WordsViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.WordsViewModel.Words">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.WordsViewModel.words"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.WordsViewModel.SearchText">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.WordsViewModel.searchText"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.WordsViewModel.SelectedDifficulty">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.WordsViewModel.selectedDifficulty"/>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.WordsViewModel.SelectedPartOfSpeech">
+            <inheritdoc cref="F:MyDictionary.Mobile.ViewModels.WordsViewModel.selectedPartOfSpeech"/>
+        </member>
+        <member name="M:MyDictionary.Mobile.ViewModels.WordsViewModel.OnSearchTextChanged(System.String)">
+            <summary>Executes the logic for when <see cref="P:MyDictionary.Mobile.ViewModels.WordsViewModel.SearchText"/> just changed.</summary>
+            <param name="value">The new property value that was set.</param>
+            <remarks>This method is invoked right after the value of <see cref="P:MyDictionary.Mobile.ViewModels.WordsViewModel.SearchText"/> is changed.</remarks>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.WordsViewModel.loadWordsCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.WordsViewModel.LoadWordsCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.WordsViewModel.LoadWordsCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.WordsViewModel.LoadWordsAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.WordsViewModel.addWordCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.WordsViewModel.AddWordCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.WordsViewModel.AddWordCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.WordsViewModel.AddWordAsync"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.WordsViewModel.editWordCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.WordsViewModel.EditWordCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.WordsViewModel.EditWordCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.WordsViewModel.EditWordAsync(MyDictionary.Core.Entities.Word)"/>.</summary>
+        </member>
+        <member name="F:MyDictionary.Mobile.ViewModels.WordsViewModel.deleteWordCommand">
+            <summary>The backing field for <see cref="P:MyDictionary.Mobile.ViewModels.WordsViewModel.DeleteWordCommand"/>.</summary>
+        </member>
+        <member name="P:MyDictionary.Mobile.ViewModels.WordsViewModel.DeleteWordCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MyDictionary.Mobile.ViewModels.WordsViewModel.DeleteWordAsync(MyDictionary.Core.Entities.Word)"/>.</summary>
+        </member>
+        <member name="T:MyDictionary.Mobile.Resource">
+            <summary>
+            Android Resource Designer class.
+            Exposes the Android Resource designer assembly into the project Namespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Button.TextColorTo(Microsoft.Maui.Controls.Button,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_DatePicker.TextColorTo(Microsoft.Maui.Controls.DatePicker,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Editor.TextColorTo(Microsoft.Maui.Controls.Editor,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Entry.TextColorTo(Microsoft.Maui.Controls.Entry,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_InputView.TextColorTo(Microsoft.Maui.Controls.InputView,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Label.TextColorTo(Microsoft.Maui.Controls.Label,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Picker.TextColorTo(Microsoft.Maui.Controls.Picker,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_RadioButton.TextColorTo(Microsoft.Maui.Controls.RadioButton,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_SearchBar.TextColorTo(Microsoft.Maui.Controls.SearchBar,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_TimePicker.TextColorTo(Microsoft.Maui.Controls.TimePicker,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs">
+            <summary>
+            A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instances
+            for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.WordId">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "WordId" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.WordText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "WordText" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Translation">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Translation" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ExampleSentence">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ExampleSentence" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ExampleTranslation">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ExampleTranslation" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Notes">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Notes" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedPartOfSpeech">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedPartOfSpeech" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedDifficulty">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedDifficulty" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.LanguageFrom">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "LanguageFrom" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.LanguageTo">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "LanguageTo" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsBusy">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsBusy" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Title">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Title" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.TotalWords">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "TotalWords" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.WordsDueToday">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "WordsDueToday" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.MasteredWords">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "MasteredWords" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.LearningStreak">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "LearningStreak" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.MasteryPercentage">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "MasteryPercentage" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.MasteryProgress">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "MasteryProgress" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ReviewsCompletedToday">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ReviewsCompletedToday" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ReviewProgress">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ReviewProgress" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.WordsThisWeek">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "WordsThisWeek" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.WeeklySuccessRate">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "WeeklySuccessRate" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.StudyDaysThisWeek">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "StudyDaysThisWeek" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.MotivationalMessage">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "MotivationalMessage" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Flashcards">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Flashcards" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CurrentCard">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CurrentCard" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CurrentIndex">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CurrentIndex" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsFlipped">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsFlipped" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Progress">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Progress" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsDarkMode">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsDarkMode" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.DefaultSourceLanguage">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "DefaultSourceLanguage" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.DefaultTargetLanguage">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "DefaultTargetLanguage" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.DailyGoal">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "DailyGoal" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsTesting">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsTesting" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsMenuVisible">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsMenuVisible" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.QuestionText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "QuestionText" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Options">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Options" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Score">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Score" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CurrentQuestionIndex">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CurrentQuestionIndex" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.TotalQuestions">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "TotalQuestions" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsMultipleChoice">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsMultipleChoice" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsTypingTest">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsTypingTest" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.TypedAnswer">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "TypedAnswer" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Words">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Words" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SearchText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SearchText" generated properties.</summary>
+        </member>
+        <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs">
+            <summary>
+            A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instances
+            for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.WordId">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "WordId" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.WordText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "WordText" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Translation">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Translation" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ExampleSentence">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ExampleSentence" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ExampleTranslation">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ExampleTranslation" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Notes">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Notes" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedPartOfSpeech">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedPartOfSpeech" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedDifficulty">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedDifficulty" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.LanguageFrom">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "LanguageFrom" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.LanguageTo">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "LanguageTo" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsBusy">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsBusy" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Title">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Title" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.TotalWords">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "TotalWords" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.WordsDueToday">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "WordsDueToday" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.MasteredWords">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "MasteredWords" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.LearningStreak">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "LearningStreak" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.MasteryPercentage">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "MasteryPercentage" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.MasteryProgress">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "MasteryProgress" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ReviewsCompletedToday">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ReviewsCompletedToday" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ReviewProgress">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ReviewProgress" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.WordsThisWeek">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "WordsThisWeek" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.WeeklySuccessRate">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "WeeklySuccessRate" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.StudyDaysThisWeek">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "StudyDaysThisWeek" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.MotivationalMessage">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "MotivationalMessage" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Flashcards">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Flashcards" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CurrentCard">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CurrentCard" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CurrentIndex">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CurrentIndex" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsFlipped">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsFlipped" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Progress">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Progress" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsDarkMode">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsDarkMode" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.DefaultSourceLanguage">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "DefaultSourceLanguage" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.DefaultTargetLanguage">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "DefaultTargetLanguage" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.DailyGoal">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "DailyGoal" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsTesting">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsTesting" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsMenuVisible">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsMenuVisible" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.QuestionText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "QuestionText" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Options">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Options" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Score">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Score" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CurrentQuestionIndex">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CurrentQuestionIndex" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.TotalQuestions">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "TotalQuestions" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsMultipleChoice">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsMultipleChoice" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsTypingTest">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsTypingTest" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.TypedAnswer">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "TypedAnswer" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Words">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Words" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SearchText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SearchText" generated properties.</summary>
+        </member>
+    </members>
+</doc>

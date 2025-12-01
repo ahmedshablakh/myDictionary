@@ -1,0 +1,11 @@
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\src\MyDictionary.Core\bin\Debug\net9.0\MyDictionary.Core.deps.json
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\src\MyDictionary.Core\bin\Debug\net9.0\MyDictionary.Core.dll
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\src\MyDictionary.Core\bin\Debug\net9.0\MyDictionary.Core.pdb
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\src\MyDictionary.Core\obj\Debug\net9.0\MyDictionary.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\src\MyDictionary.Core\obj\Debug\net9.0\MyDictionary.Core.AssemblyInfoInputs.cache
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\src\MyDictionary.Core\obj\Debug\net9.0\MyDictionary.Core.AssemblyInfo.cs
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\src\MyDictionary.Core\obj\Debug\net9.0\MyDictionary.Core.csproj.CoreCompileInputs.cache
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\src\MyDictionary.Core\obj\Debug\net9.0\MyDictionary.Core.dll
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\src\MyDictionary.Core\obj\Debug\net9.0\refint\MyDictionary.Core.dll
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\src\MyDictionary.Core\obj\Debug\net9.0\MyDictionary.Core.pdb
+C:\Users\aboar\.gemini\antigravity\scratch\MyDictionary\src\MyDictionary.Core\obj\Debug\net9.0\ref\MyDictionary.Core.dll

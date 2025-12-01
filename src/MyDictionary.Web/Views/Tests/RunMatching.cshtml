@@ -1,0 +1,186 @@
+@model MyDictionary.Web.Controllers.TestViewModel
+
+@{
+    ViewData["Title"] = "Matching Game";
+}
+
+<div class="max-w-4xl mx-auto" x-data="matchingGame()">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-900 dark:text-slate-100">Matching Game</h1>
+            <p class="text-slate-500 dark:text-slate-400">Match words with their translations</p>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-4 py-2 rounded-lg font-mono font-bold">
+                <span x-text="formatTime(seconds)">00:00</span>
+            </div>
+            <div class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-4 py-2 rounded-lg font-bold">
+                <span x-text="matchesFound">0</span> / @Model.Questions.Count Pairs
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <template x-for="(item, index) in gridItems" :key="index">
+            <button 
+                @@click="handleCardClick(index)"
+                :class="{
+                    'bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200': !item.selected && !item.matched && !item.error,
+                    'bg-primary-100 dark:bg-primary-900/50 border-primary-500 text-primary-700 dark:text-primary-300 ring-2 ring-primary-500': item.selected,
+                    'bg-green-100 dark:bg-green-900/50 border-green-500 text-green-700 dark:text-green-300 opacity-0 pointer-events-none': item.matched,
+                    'bg-red-100 dark:bg-red-900/50 border-red-500 text-red-700 dark:text-red-300 animate-shake': item.error
+                }"
+                class="h-32 p-4 rounded-xl border-2 shadow-sm flex items-center justify-center text-center font-medium transition-all duration-200 transform hover:scale-105"
+                x-text="item.text"
+                :disabled="item.matched">
+            </button>
+        </template>
+    </div>
+
+    <!-- Hidden Form for Submission -->
+    <div x-show="gameOver" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm" style="display: none;">
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl max-w-md w-full text-center transform transition-all scale-100">
+            <div class="w-20 h-20 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fa-solid fa-trophy text-4xl"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2">Great Job!</h2>
+            <p class="text-slate-600 dark:text-slate-400 mb-6">You matched all pairs in <span x-text="formatTime(seconds)"></span></p>
+            
+            <div class="space-y-3">
+                <button @@click="submitResults" class="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 rounded-xl font-bold transition-colors">
+                    See Results
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alpine.js for game logic -->
+<script src="//unpkg.com/alpinejs" defer></script>
+
+<script>
+    function matchingGame() {
+        return {
+            seconds: 0,
+            timer: null,
+            gameOver: false,
+            matchesFound: 0,
+            selectedIndices: [],
+            wrongAnswers: 0,
+            
+            // Prepare grid items (words and translations mixed)
+            gridItems: [
+                @foreach (var q in Model.Questions)
+                {
+                    <text>
+                    { id: @q.WordId, text: "@q.WordText", type: 'word', selected: false, matched: false, error: false },
+                    { id: @q.WordId, text: "@q.CorrectAnswer", type: 'translation', selected: false, matched: false, error: false },
+                    </text>
+                }
+            ].sort(() => Math.random() - 0.5),
+
+            init() {
+                this.timer = setInterval(() => {
+                    if (!this.gameOver) this.seconds++;
+                }, 1000);
+            },
+
+            handleCardClick(index) {
+                if (this.gridItems[index].matched || this.gridItems[index].selected) return;
+                if (this.selectedIndices.length >= 2) return;
+
+                // Select card
+                this.gridItems[index].selected = true;
+                this.selectedIndices.push(index);
+
+                // Check match if 2 cards selected
+                if (this.selectedIndices.length === 2) {
+                    const idx1 = this.selectedIndices[0];
+                    const idx2 = this.selectedIndices[1];
+                    const item1 = this.gridItems[idx1];
+                    const item2 = this.gridItems[idx2];
+
+                    if (item1.id === item2.id && item1.type !== item2.type) {
+                        // Match found
+                        setTimeout(() => {
+                            item1.matched = true;
+                            item2.matched = true;
+                            item1.selected = false;
+                            item2.selected = false;
+                            this.matchesFound++;
+                            this.selectedIndices = [];
+                            
+                            // Check win condition
+                            if (this.matchesFound === @Model.Questions.Count) {
+                                this.endGame();
+                            }
+                        }, 300);
+                    } else {
+                        // No match
+                        this.wrongAnswers++;
+                        setTimeout(() => {
+                            item1.error = true;
+                            item2.error = true;
+                        }, 300);
+                        
+                        setTimeout(() => {
+                            item1.selected = false;
+                            item2.selected = false;
+                            item1.error = false;
+                            item2.error = false;
+                            this.selectedIndices = [];
+                        }, 1000);
+                    }
+                }
+            },
+
+            endGame() {
+                this.gameOver = true;
+                clearInterval(this.timer);
+            },
+
+            formatTime(sec) {
+                const m = Math.floor(sec / 60).toString().padStart(2, '0');
+                const s = (sec % 60).toString().padStart(2, '0');
+                return `${m}:${s}`;
+            },
+
+            submitResults() {
+                const data = {
+                    type: 3, // Matching
+                    totalQuestions: @Model.Questions.Count,
+                    correctAnswers: @Model.Questions.Count,
+                    wrongAnswers: this.wrongAnswers,
+                    durationSeconds: this.seconds
+                };
+
+                fetch('/Tests/Submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        window.location.href = result.redirectUrl;
+                    }
+                });
+            }
+        }
+    }
+</script>
+
+<style>
+    @@keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+    .animate-shake {
+        animation: shake 0.3s ease-in-out;
+    }
+</style>

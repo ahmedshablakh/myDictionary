@@ -1,0 +1,64 @@
+<Shell
+    x:Class="MyDictionary.Mobile.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MyDictionary.Mobile.Views"
+    FlyoutBackgroundColor="White"
+    Shell.FlyoutBehavior="Flyout">
+
+    <!-- 
+    <Shell.FlyoutHeader>
+        <ContentView>
+            <Grid BackgroundColor="#667EEA" 
+                  Padding="20" 
+                  HeightRequest="150">
+                <VerticalStackLayout VerticalOptions="Center">
+                    <Label Text="📚" FontSize="48" HorizontalOptions="Center"/>
+                    <Label Text="MyDictionary" 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Grid>
+        </ContentView>
+    </Shell.FlyoutHeader>
+    -->
+
+    <FlyoutItem Title="Dashboard" Route="dashboard">
+        <ShellContent ContentTemplate="{DataTemplate views:DashboardPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="My Words" Route="words">
+        <ShellContent ContentTemplate="{DataTemplate views:WordsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Flashcards" Route="flashcards">
+        <ShellContent ContentTemplate="{DataTemplate views:FlashcardsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Tests" Route="tests">
+        <ShellContent ContentTemplate="{DataTemplate views:TestsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Settings" Route="settings">
+        <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" />
+    </FlyoutItem>
+
+    <!--
+    <Shell.FlyoutFooter>
+        <ContentView>
+            <Grid BackgroundColor="#667EEA" 
+                  Padding="20" 
+                  HeightRequest="60">
+                <Label Text="Version 1.0.0" 
+                       FontSize="12" 
+                       TextColor="White"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"/>
+            </Grid>
+        </ContentView>
+    </Shell.FlyoutFooter>
+    -->
+
+</Shell>

@@ -1,0 +1,207 @@
+﻿@model MyDictionary.Web.Models.DashboardViewModel
+@using MyDictionary.Core.Entities
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-slate-900">Welcome back!</h1>
+    <p class="text-slate-500">Here's an overview of your learning progress.</p>
+</div>
+
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Total Words -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center text-xl">
+                <i class="fa-solid fa-book"></i>
+            </div>
+            <span class="text-sm font-medium text-slate-400">Total</span>
+        </div>
+        <h3 class="text-3xl font-bold text-slate-900">@Model.TotalWords</h3>
+        <p class="text-sm text-slate-500 mt-1">Words collected</p>
+    </div>
+
+    <!-- Mastered -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-green-50 text-green-600 rounded-lg flex items-center justify-center text-xl">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <span class="text-sm font-medium text-slate-400">Mastered</span>
+        </div>
+        <h3 class="text-3xl font-bold text-slate-900">@Model.MasteredWords</h3>
+        <p class="text-sm text-slate-500 mt-1">Words learned</p>
+    </div>
+
+    <!-- Due for Review -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-lg flex items-center justify-center text-xl">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <span class="text-sm font-medium text-slate-400">Review</span>
+        </div>
+        <h3 class="text-3xl font-bold text-slate-900">@Model.DueForReview</h3>
+        <p class="text-sm text-slate-500 mt-1">Words due today</p>
+    </div>
+
+    <!-- Accuracy -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-lg flex items-center justify-center text-xl">
+                <i class="fa-solid fa-bullseye"></i>
+            </div>
+            <span class="text-sm font-medium text-slate-400">Accuracy</span>
+        </div>
+        <h3 class="text-3xl font-bold text-slate-900">
+            @(Model.RecentTestResults.Any() ? Math.Round(Model.RecentTestResults.Average(r => r.Score), 1) : 0)%
+        </h3>
+        <p class="text-sm text-slate-500 mt-1">Average score</p>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Quick Actions & Recent Activity -->
+    <div class="lg:col-span-2 space-y-8">
+        <!-- Action Banner -->
+        <div class="bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg">
+            <div>
+                <h2 class="text-2xl font-bold mb-2">Ready to practice?</h2>
+                <p class="text-primary-100">You have @Model.DueForReview words waiting for review.</p>
+            </div>
+            <div class="flex gap-3">
+                <a asp-controller="Flashcards" asp-action="Index" class="bg-white text-primary-700 hover:bg-primary-50 px-6 py-3 rounded-xl font-bold transition-colors shadow-sm">
+                    Start Review
+                </a>
+                <a asp-controller="Words" asp-action="Create" class="bg-primary-500 bg-opacity-30 hover:bg-opacity-40 text-white px-6 py-3 rounded-xl font-bold transition-colors backdrop-blur-sm">
+                    Add Word
+                </a>
+            </div>
+        </div>
+
+        <!-- Recent Tests -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-6 border-b border-slate-200 flex justify-between items-center">
+                <h3 class="font-bold text-slate-900">Recent Activity</h3>
+                <a asp-controller="Tests" asp-action="Index" class="text-sm text-primary-600 hover:text-primary-700 font-medium">View All</a>
+            </div>
+            <div class="divide-y divide-slate-100">
+                @foreach (var result in Model.RecentTestResults)
+                {
+                    <div class="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
+                                <i class="fa-solid fa-clipboard-check"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-900">@result.TestType Test</p>
+                                <p class="text-xs text-slate-500">@result.TestDate.ToLocalTime().ToString("MMM dd, HH:mm")</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="block font-bold @(result.Score >= 80 ? "text-green-600" : result.Score >= 50 ? "text-yellow-600" : "text-red-600")">
+                                @Math.Round(result.Score)%
+                            </span>
+                            <span class="text-xs text-slate-400">@result.CorrectAnswers/@result.TotalQuestions correct</span>
+                        </div>
+                    </div>
+                }
+                @if (!Model.RecentTestResults.Any())
+                {
+                    <div class="p-8 text-center text-slate-500">No recent activity</div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Charts (Simplified visuals for now) -->
+    <!-- Stats Charts -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Difficulty Distribution -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+            <h3 class="font-bold text-slate-900 dark:text-slate-100 mb-6">Difficulty Breakdown</h3>
+            <div class="h-64 flex items-center justify-center">
+                <canvas id="difficultyChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Part of Speech -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+            <h3 class="font-bold text-slate-900 dark:text-slate-100 mb-6">Word Types</h3>
+            <div class="h-64 flex items-center justify-center">
+                <canvas id="posChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Difficulty Chart
+        const diffCtx = document.getElementById('difficultyChart').getContext('2d');
+        new Chart(diffCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Easy', 'Medium', 'Hard'],
+                datasets: [{
+                    data: [
+                        @Model.WordsByDifficulty.GetValueOrDefault(Difficulty.Easy, 0),
+                        @Model.WordsByDifficulty.GetValueOrDefault(Difficulty.Medium, 0),
+                        @Model.WordsByDifficulty.GetValueOrDefault(Difficulty.Hard, 0)
+                    ],
+                    backgroundColor: ['#22c55e', '#eab308', '#ef4444'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: document.documentElement.classList.contains('dark') ? '#cbd5e1' : '#475569' }
+                    }
+                }
+            }
+        });
+
+        // Part of Speech Chart
+        const posCtx = document.getElementById('posChart').getContext('2d');
+        const posData = @Json.Serialize(Model.WordsByPartOfSpeech);
+        
+        new Chart(posCtx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(posData),
+                datasets: [{
+                    label: 'Count',
+                    data: Object.values(posData),
+                    backgroundColor: '#3b82f6',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: document.documentElement.classList.contains('dark') ? '#334155' : '#e2e8f0' },
+                        ticks: { color: document.documentElement.classList.contains('dark') ? '#cbd5e1' : '#475569' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: document.documentElement.classList.contains('dark') ? '#cbd5e1' : '#475569' }
+                    }
+                }
+            }
+        });
+    </script>
+}
+</div>
